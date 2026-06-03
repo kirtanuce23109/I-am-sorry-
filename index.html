@@ -1,190 +1,155 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Babby ❤️ Bubuu</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Babby ❤️ Bubuu Ultimate Edition</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:linear-gradient(135deg,#ff758c,#ff7eb3);color:white;overflow-x:hidden}
-section{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:30px;text-align:center}
-.card{max-width:900px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);padding:30px;border-radius:25px}
-h1{font-size:3.5rem;margin-bottom:20px}
-h2{font-size:2.3rem;margin-bottom:20px}
-p{font-size:1.2rem;line-height:1.8}
-.btn{display:inline-block;margin-top:20px;padding:14px 30px;background:white;color:#ff4d88;text-decoration:none;border-radius:40px;font-weight:bold}
-.heart{position:fixed;animation:float 8s linear infinite;opacity:.6}
-@keyframes float{from{transform:translateY(100vh)}to{transform:translateY(-120px)}}
-input[type=range]{width:80%}
-button{padding:12px 25px;border:none;border-radius:30px;margin:10px;cursor:pointer}
-#gameArea{position:relative;width:100%;height:300px;background:rgba(255,255,255,.15);border-radius:20px;overflow:hidden}
-.fallHeart{position:absolute;font-size:30px}
-#noBtn{background:#fff}
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#111827,#db2777);color:white}
+section{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:30px}
+.box{max-width:1100px;width:100%;background:rgba(255,255,255,.12);backdrop-filter:blur(12px);padding:30px;border-radius:25px;text-align:center}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.gallery img,.card{width:100%;border-radius:18px}
+.card{background:rgba(255,255,255,.08);padding:20px}
+button,.btn{padding:12px 24px;border:none;border-radius:30px;cursor:pointer}
+#game{height:250px;position:relative;background:rgba(255,255,255,.08);border-radius:20px;overflow:hidden}
+.heart{position:absolute;font-size:28px;cursor:pointer}
 </style>
 </head>
 <body>
 
-<script>
-for(let i=0;i<40;i++){
- let h=document.createElement('div');
- h.className='heart';
- h.innerHTML='❤️';
- h.style.left=Math.random()*100+'vw';
- h.style.fontSize=(15+Math.random()*25)+'px';
- h.style.animationDuration=(5+Math.random()*8)+'s';
- document.body.appendChild(h);
-}
-</script>
+<section><div class="box">
+<h1>Babby ❤️ Bubuu</h1>
+<h2>The Glimpse I Missed</h2>
+<p>Almost 3 years. One missed station. A thousand regrets.</p>
+</div></section>
 
-<section>
-<div class="card">
-<h1>❤️ Babby & Bubuu ❤️</h1>
-<p>This isn't just a website. It's a journey from Bubuu's heart to Babby's smile.</p>
-<a class="btn" href="#station">Begin Journey</a>
+<section><div class="box">
+<h2>📸 Babby Gallery</h2>
+<div class="gallery">
+<img src="babby1.jpg.jpeg">
+<img src="babby2.jpg.jpeg">
+<img src="babby3.jpg.jpeg">
+<img src="babby4.jpg.jpeg">
+<img src="babby5.jpg.jpeg">
 </div>
-</section>
+</div></section>
 
-<section id="station">
-<div class="card">
-<h2>🚉 The Railway Station</h2>
-<p>Babby, the thing I missed most wasn't the station itself. It was the chance to see your glimpse and spend quality time with you.</p>
-<a class="btn" href="#meter">Next</a>
+<section><div class="box">
+<h2>🎮 Game 1: Find Babby</h2>
+<p>Click any Babby photo.</p>
+<div class="gallery">
+<img src="babby1.jpg.jpeg" onclick="alert('Achievement Unlocked: Most Beautiful Human Found ❤️')">
+<img src="babby2.jpg.jpeg" onclick="alert('Achievement Unlocked: Most Beautiful Human Found ❤️')">
+<img src="babby3.jpg.jpeg" onclick="alert('Achievement Unlocked: Most Beautiful Human Found ❤️')">
 </div>
-</section>
+</div></section>
 
-<section id="meter">
-<div class="card">
+<section><div class="box">
 <h2>😡 Anger Meter</h2>
-<input type="range" min="0" max="100" value="50" id="anger">
-<p id="angerText">Move the slider...</p>
-<a class="btn" href="#quiz">Continue</a>
-</div>
-</section>
+<input type="range" min="0" max="100" oninput="meter.innerHTML='Babby is still 100% adorable ❤️'" style="width:80%">
+<p id="meter"></p>
+</div></section>
 
-<section id="quiz">
-<div class="card">
-<h2>❤️ Memory Quiz</h2>
+<section><div class="box">
+<h2>🎮 Game 2: Memory Quiz</h2>
 <p>What does Bubuu love most?</p>
-<button onclick="quiz('right')">Babby ❤️</button>
-<button onclick="quiz('wrong')">Pizza 🍕</button>
-<button onclick="quiz('wrong')">Sleep 😴</button>
-<p id="quizResult"></p>
-<a class="btn" href="#game">Next Game</a>
-</div>
-</section>
+<button onclick="quiz.innerHTML='Correct ❤️ Babby'">Babby</button>
+<button onclick="quiz.innerHTML='Wrong 😄'">Pizza</button>
+<p id="quiz"></p>
+</div></section>
 
-<section id="game">
-<div class="card">
-<h2>🎯 Catch My Heart</h2>
-<p>Catch 10 hearts by moving your mouse.</p>
-<div id="gameArea"></div>
-<p id="score">Score: 0</p>
-<a class="btn" href="#letter">Next</a>
-</div>
-</section>
+<section><div class="box">
+<h2>🎮 Game 3: Catch Bubuu's Heart</h2>
+<div id="game"></div>
+<p id="score">0/10</p>
+</div></section>
 
-<section id="letter">
-<div class="card">
-<h2>💌 Letter To Babby</h2>
-<p id="type"></p>
-<a class="btn" href="#final">Final Page</a>
-</div>
-</section>
+<section><div class="box">
+<h2>🎮 Game 4: Love Calculator</h2>
+<button onclick="love.innerHTML='99.99% ❤️ Remaining 0.01% unlocked after forgiveness'">Calculate</button>
+<p id="love"></p>
+</div></section>
 
-<section id="final">
-<div class="card">
-<h1>Will You Forgive Me? ❤️</h1>
-<button onclick="forgive()">Yes ❤️</button>
-<button id="noBtn">No 😡</button>
-<h2 id="result"></h2>
-<canvas id="canvas"></canvas>
+<section><div class="box">
+<h2>🎮 Game 5: Build The Perfect Date</h2>
+<p>Select your dream date:</p>
+<button onclick="date.innerHTML='🌹🍦🎬 Date Approved By Babby ❤️'">Create Date</button>
+<p id="date"></p>
+</div></section>
+
+<section><div class="box">
+<h2>🎮 Game 6: Babby Detector</h2>
+<button onclick="det.innerHTML='⚠️ Excessive Cuteness Detected ❤️'">Scan</button>
+<p id="det"></p>
+</div></section>
+
+<section><div class="box">
+<h2>✨ Why Babby Is Special</h2>
+<div class="gallery">
+<div class="card">The way Babbyyy loves me ❤️</div>
+<div class="card">Her smile 😊</div>
+<div class="card">Her kindness 🌸</div>
+<div class="card">Her support ✨</div>
 </div>
-</section>
+</div></section>
+
+<section><div class="box">
+<h2>💌 Letter From Bubuu</h2>
+<p id="letter"></p>
+</div></section>
+
+<section><div class="box">
+<img src="babby1.jpg.jpeg" style="max-width:300px;width:100%;border-radius:20px">
+<h2>Of all the things I missed that day...</h2>
+<p>The station wasn't important. The train wasn't important. You were ❤️</p>
+<h2>Will You Forgive Me?</h2>
+<button onclick="yes()">YES ❤️</button>
+<button id="noBtn">NO 😡</button>
+<h2 id="end"></h2>
+</div></section>
 
 <script>
-document.getElementById('anger').oninput=function(){
-document.getElementById('angerText').innerHTML=
-"Result: Even when angry, Babby is still 100% adorable ❤️";
-}
-
-function quiz(v){
-document.getElementById('quizResult').innerHTML=
-v==='right'?"Correct! ❤️":"Wrong! Bubuu loves Babby ❤️";
-}
-
-let txt="Dear Babby, I am sorry for missing the chance to spend quality time with you and see your beautiful glimpse at the station. Every memory with you is special. From your Bubuu ❤️";
-let i=0;
-(function type(){
- if(i<txt.length){
-   document.getElementById('type').innerHTML+=txt.charAt(i++);
-   setTimeout(type,35);
- }
-})();
-
-const noBtn=document.getElementById('noBtn');
-noBtn.addEventListener('mouseover',()=>{
- noBtn.style.position='fixed';
- noBtn.style.left=Math.random()*(window.innerWidth-120)+'px';
- noBtn.style.top=Math.random()*(window.innerHeight-60)+'px';
-});
-
-function forgive(){
- document.getElementById('result').innerHTML="🥹 Thank You Babby ❤️ Love You Forever!";
- confetti();
-}
-
 let score=0;
-const area=document.getElementById('gameArea');
-
 function spawn(){
- let h=document.createElement('div');
- h.className='fallHeart';
- h.innerHTML='❤️';
- h.style.left=Math.random()*90+'%';
- h.style.top='0px';
- area.appendChild(h);
- let y=0;
- let move=setInterval(()=>{
-   y+=4;
-   h.style.top=y+'px';
-   if(y>260){clearInterval(move);h.remove();}
- },30);
- h.addEventListener('mouseover',()=>{
-   score++;
-   document.getElementById('score').innerHTML='Score: '+score;
-   h.remove();
-   clearInterval(move);
- });
+let h=document.createElement('div');
+h.className='heart';
+h.innerHTML='❤️';
+h.style.left=Math.random()*90+'%';
+document.getElementById('game').appendChild(h);
+let y=0;
+let iv=setInterval(()=>{
+y+=5;h.style.top=y+'px';
+if(y>220){clearInterval(iv);h.remove();}
+},30);
+h.onclick=()=>{
+score++;
+document.getElementById('score').innerHTML=score+'/10';
+h.remove();
+clearInterval(iv);
+if(score>=10) document.getElementById('score').innerHTML='🎉 You caught Bubuu\'s heart again ❤️';
 }
-setInterval(spawn,1200);
+}
+setInterval(spawn,1000);
 
-function confetti(){
- let c=document.getElementById('canvas');
- c.width=window.innerWidth;
- c.height=window.innerHeight;
- let ctx=c.getContext('2d');
- let p=[];
- for(let i=0;i<150;i++)p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:2+Math.random()*5,d:1+Math.random()*5});
- function a(){
-   ctx.clearRect(0,0,c.width,c.height);
-   p.forEach(e=>{
-     ctx.beginPath();
-     ctx.arc(e.x,e.y,e.r,0,6.28);
-     ctx.fillStyle=`hsl(${Math.random()*360},100%,60%)`;
-     ctx.fill();
-     e.y+=e.d;
-     if(e.y>c.height)e.y=0;
-   });
-   requestAnimationFrame(a);
- }
- a();
+let txt="Dear Babby, Almost 3 years later, the thing I regret most is missing your glimpse at the station. Thank you for loving me the way you do. Love, Bubuu ❤️";
+let i=0;(function t(){if(i<txt.length){letter.innerHTML+=txt[i++];setTimeout(t,35)}})();
+
+noBtn.onmouseover=()=>{
+noBtn.style.position='fixed';
+noBtn.style.left=Math.random()*80+'vw';
+noBtn.style.top=Math.random()*80+'vh';
 }
+
+function yes(){
+end.innerHTML='🥹 Thank you Babby ❤️ Bubuu owes you a Bollywood style date.';
+}
+
+document.addEventListener('keydown',e=>{
+if(e.key==='b') alert('Babby ❤️');
+if(e.key==='l') alert('Love You ❤️');
+if(e.key==='m') alert('Marry Me... Just kidding 😄');
+});
 </script>
 </body>
-</html>'''
-
-path = "/mnt/data/index.html"
-Path(path).write_text(html, encoding="utf-8")
-print(path)
+</html>
